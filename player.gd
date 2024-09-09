@@ -56,9 +56,9 @@ func _physics_process(delta):
 		if collision.get_collider().is_in_group("mob"):
 			collided_mob = collision.get_collider()
 			# We check that we are hitting it from above.
-			if Vector3.UP.dot(collision.get_normal() > 0.1):
+			if Vector3.UP.dot(collision.get_normal()) > 0.1:
 				# If so, we sqash it and bounce.
-				collided_mob.sqash()
+				collided_mob.squash()
 				target_velocity.y = bounce_impulse
 				# Prevent futher duplicate calls.
 				break
