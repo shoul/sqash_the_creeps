@@ -10,6 +10,9 @@ extends CharacterBody3D
 # meters per second.
 @export var bounce_impulse = 16
 
+@onready var animation_player: AnimationPlayer = %AnimationPlayer
+@onready var player_pivot: Node3D = %Pivot
+
 # Emitted when the player was hit by a mob.
 signal hit
 
@@ -33,6 +36,11 @@ func _physics_process(delta):
 	if direction != Vector3.ZERO:
 		direction = direction.normalized()
 		$Pivot.basis = Basis.looking_at(direction)
+		animation_player.speed_scale = 4
+	else:
+		animation_player.speed_scale = 1
+	player_pivot.rotation.x = PI / 6 * velocity.y / jump_impulse
+	
 
 	# Ground Velocity
 	target_velocity.x = direction.x * speed
