@@ -2,9 +2,13 @@ extends Node
 
 @export var mob_scene: PackedScene
 
+@onready var retry: ColorRect = %Retry
+
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	retry.hide()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -40,3 +44,9 @@ func _on_mob_timer_timeout() -> void:
 
 func _on_player_hit() -> void:
 	$MobTimer.stop()
+	retry.show()
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_accept") and retry.visible:
+		get_tree().reload_current_scene()
