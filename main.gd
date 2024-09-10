@@ -17,6 +17,7 @@ func _on_mob_timer_timeout() -> void:
 	var mob: CharacterBody3D
 	var mob_spawn_location: PathFollow3D
 	var player_position: Vector3
+	var score_label = %ScoreLabel
 	
 	# Create a new instance of the Mob scene.
 	mob = mob_scene.instantiate()
@@ -32,6 +33,9 @@ func _on_mob_timer_timeout() -> void:
 
 	# Spawn the mob by adding it to the Main scene.
 	add_child(mob)
+	
+	# Connect the mob to the score label to update the score upon squashing one
+	mob.squashed.connect(score_label._on_mob_squashed.bind())
 
 
 func _on_player_hit() -> void:
